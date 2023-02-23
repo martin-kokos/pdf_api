@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "pdf-api"
+version = "0.1.0"
+description = "PDF content extraction API"
+authors = ["Martin Mokry <martin-kokos@users.noreply.github.com>"]
+license = "Apache License 2.0"
+readme = "README.md"
+packages = [{include = "pdf_api"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.92.0"
+uvicorn = "^0.20.0"
+pdfminer-six = "^20221105"
+pikepdf = "^7.1.1"
+beautifulsoup4 = "^4.11.2"
+python-multipart = "^0.0.5"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.2.1"
+httpx = "^0.23.3"
+black = "^23.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
