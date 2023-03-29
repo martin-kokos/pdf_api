@@ -7,7 +7,7 @@ import pytest
 client = TestClient(app)
 
 
-@pytest.mark.skip(reason="Returns 422 UNprocessable entity, dunno why. Manually works")
+@pytest.mark.skip(reason="Broken test. Returns 422 Unprocessable entity. https://github.com/encode/starlette/issues/1059 ")
 def test_send_file():
     test_file_path = "tests/files/ZA7505_cdb.pdf"
 
