@@ -17,5 +17,13 @@ async def root():
 
 @app.post("/pdf_text_chunks")
 async def text_chunks(file: UploadFile):
-    chunks = pdf_parser.get_text(file.file)
-    return chunks
+    chunks, elapsed_s = pdf_parser.get_text(file.file)
+    filesize = file.size
+    response = {
+        'metadata': {
+            'filesize_b': filesize,
+            'job_time_s': round(elapsed_s, 2),
+        },
+        'chunks': chunks,
+    }
+    return response

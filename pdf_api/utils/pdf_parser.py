@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 
 import io
 import re
+import time
 from statistics import mean
 
 
@@ -29,14 +30,19 @@ class PdfParser:
         with open(file_path, "rb") as fin:
             return self.get_text(fin)
 
-    def get_text(self, buffer) -> list[dict]:
+
+    def get_text(self, buffer) -> tuple[list[dict], int]:
         """
         Accepts file-like buffer containing PDF file.
 
-        Returns a list of dicts representing extracted text elements with attributes.
+        Returns:
+            a list of dicts representing extracted text elements with attributes,
+            elapsed seconds
         """
         outbuff = io.StringIO()
         elems = []
+
+        timer_start = time.time()
 
         extract_text_to_fp(
             buffer, outbuff, laparams=LAParams(), output_type="html", codec=None
@@ -60,4 +66,6 @@ class PdfParser:
                     e["type"] = "h1"
                 elems.append(e)
 
-        return elems
+        timer_stop = time.time()
+
+        return elems, (timer_stop - timer_start)
