@@ -7,7 +7,7 @@ ENV POETRY_NO_INTERACTION=1
 ENV PATH="$POETRY_HOME/bin:$PATH"
 
 # install poetry
-RUN apt-get update \
+RUN apt update \
     && apt-get install -y --no-install-recommends curl \
         && curl -sSL https://install.python-poetry.org | python3 -
 
@@ -18,6 +18,9 @@ RUN poetry install --no-root --no-ansi --without dev
 
 # Runner stage
 FROM python:3.11-slim as runner
+
+# psycopg rdeps
+RUN apt-get update && apt-get install -y --no-install-recommends libpq-dev
 
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1

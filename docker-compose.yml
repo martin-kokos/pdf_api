@@ -1,0 +1,34 @@
+version: "3.1"
+services:
+  web:
+    build: .
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      - "DB_DSN=postgresql+psycopg://postgres:postgres@db:5432/postgres"
+      - "JWT_SECRET=lu74v20tqy0bUA5XUtZJVr0ZBNZ5vPoWDvKy4akX218"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./pgdata/:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 1s
+      timeout: 5s
+      retries: 10
+    ports:
+      - "5430:5432"
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8081:8080"
