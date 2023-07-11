@@ -6,7 +6,7 @@ def test_pdf_file_parser():
 
     parser = PdfParser()
 
-    text_elems = parser.get_text_fp(test_file_path)
+    text_elems, elapsed_time = parser.get_text_fp(test_file_path)
 
     assert text_elems[12670] == {
         "pos": 12672,

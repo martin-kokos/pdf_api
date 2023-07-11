@@ -30,7 +30,6 @@ class PdfParser:
         with open(file_path, "rb") as fin:
             return self.get_text(fin)
 
-
     def get_text(self, buffer) -> tuple[list[dict], int]:
         """
         Accepts file-like buffer containing PDF file.
