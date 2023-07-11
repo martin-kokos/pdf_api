@@ -12,21 +12,23 @@ Redoc: `http://localhost:8000/redoc`
 # Develop
 ## Environment
 Install requirements:
+
 `poetry install`
 
 Activate venv:
+
 `poetry shell`
 
 ## DB
-start test DB:
-`docker run --name test-postgres -p 5432:5432 -e POSTGRES_USERNAME=postgres -e POSTGRES_PASSWORD=postgres postgres `
-`export DB_DSN="postgresql+psycopg://postgres:postgres@localhost:5432/postgres"`
-`export JWT_SECRET="secret"`
-connect:
-`psql -d "host=localhost port=5432 user=postgres password=postgres"`
-bootstrap tables:
+### start test DB:
+`docker run --name test-postgres -p 5432:5432 -e POSTGRES_USERNAME=postgres -e POSTGRES_PASSWORD=postgres postgres` \
+`export DB_DSN="postgresql+psycopg://postgres:postgres@localhost:5432/postgres"` \
+`export JWT_SECRET="secret"` \
+### connect:
+`psql -d "host=localhost port=5432 user=postgres password=postgres"` \
+### bootstrap tables:
 `alembic upgrade head`
-upgrade tables:
+### upgrade tables:
 `docker exec pdf_api-web-1 alembic upgrade head`
 
 ### Docker
@@ -38,6 +40,7 @@ upgrade tables:
 
 ### Pyest
 Pytest uses sqlite
+
 `poetry run pytest -xvs --ff`
 
 ## Run
